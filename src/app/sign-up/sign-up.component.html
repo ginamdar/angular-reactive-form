@@ -27,12 +27,16 @@
             </div>
             <div class="form-group">
                 <label for="confirmPassword">Confirm Password</label>
-                <input type="text"
+                <input type="password"
                        formControlName="confirmPassword"
                        class="form-control"
+                       [ngClass]="{'is-invalid': userForm.get('confirmPassword').errors && userForm.get('confirmPassword').touched}"
                        id="confirmPassword"
                        placeholder="Confirm Password"
                        autocomplete>
+                <div class="invalid-feedback" *ngIf="userForm.get('confirmPassword').hasError('passwordMismatch')">
+                    Passwords don't match
+                </div>
             </div>
             <section formGroupName="address">
                 <div class="form-group">
