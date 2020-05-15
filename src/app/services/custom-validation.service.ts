@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import {FormGroup} from '@angular/forms';
+import {AbstractControl, FormGroup} from '@angular/forms';
+import {map, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomValidationService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   passwordMatchValidator(password: string, confirmPassword: string) {
     return (formGroup: FormGroup) => {
@@ -30,5 +32,25 @@ export class CustomValidationService {
         confirmPasswordControl.setErrors(null);
       }
     };
+  }
+
+  validateUsernameNotTaken(control: AbstractControl) {
+    return this.checkUsernameNotTaken(control.value).pipe(
+      map(res => {
+        return res ? null : { usernameTaken: true };
+      })
+    );
+  }
+
+  //Fake API call -- You can have this in another service
+  checkUsernameNotTaken(username: string) {
+    return this.http.get('assets/fakedb.json')
+      .pipe(
+        map((usernameList: Array<any>) =>
+          usernameList.filter(user => user.username === username)
+        ),
+        tap((users ) => console.log(users)),
+        map(users => !users.length),
+      );
   }
 }
