@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-6 offset-3">
+    <div class="col-sm-8 offset-2">
         <div class="text-center">
             <h4>
                 Sign Up
@@ -34,6 +34,41 @@
                        placeholder="Confirm Password"
                        autocomplete>
             </div>
+            <section formGroupName="address">
+                <div class="form-group">
+                    <label for="inputStreet">Address</label>
+                    <input formControlName="street"
+                            type="text"
+                           class="form-control"
+                           id="inputStreet"
+                           placeholder="1234 Main St">
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="inputCity">City</label>
+                        <input formControlName="city"
+                               type="text"
+                               class="form-control"
+                               id="inputCity">
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputState">State</label>
+                        <select formControlName="state"
+                                id="inputState"
+                                class="form-control">
+                            <option value="" disabled>Choose a state</option>
+                            <option *ngFor="let state of stateOptions" [ngValue]="state">{{state}}</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="inputPostalCode">Postal Code</label>
+                        <input formControlName="postalCode"
+                               type="text"
+                               class="form-control"
+                               id="inputPostalCode">
+                    </div>
+                </div>
+            </section>
             <p>
                 <button class="btn btn-success"
                         type="submit">
