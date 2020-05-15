@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomValidationService} from '../services/custom-validation.service';
 
 @Component({
@@ -34,12 +34,21 @@ export class SignUpComponent implements OnInit {
         city: [''],
         state: [''],
         postalCode: [''],
-      })
+      }),
+      daysAvailable: this.fb.array([this.fb.control('')])
     }, {
       validator: this.customValidator.passwordMatchValidator(
         'password', 'confirmPassword'
       )
     });
+  }
+
+  addDay() {
+    this.daysAvailable.push(this.fb.control(''));
+  }
+
+  get daysAvailable() {
+    return this.userForm.get('daysAvailable') as FormArray;
   }
 
   get username() {
