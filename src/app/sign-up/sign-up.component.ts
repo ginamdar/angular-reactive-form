@@ -42,6 +42,18 @@ export class SignUpComponent implements OnInit {
     });
   }
 
+  get username() {
+    return this.userForm.get('username');
+  }
+
+  get password() {
+    return this.userForm.get('password');
+  }
+
+  get confirmPassword() {
+    return this.userForm.get('confirmPassword');
+  }
+
   clear() {
     // this.username.reset();
     // this.username.setValue("");
