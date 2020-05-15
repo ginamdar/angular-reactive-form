@@ -10,6 +10,13 @@ export class SignUpComponent implements OnInit {
   userForm: FormGroup;
   stateOptions: string[] = ['ON', 'AB', 'QC', 'NS', 'BC'];
 
+  userInfoAddress: any = {
+    street: '122 Main St.',
+    city: 'Kitchener',
+    state: this.stateOptions[0],
+    postalCode: 'N2A 4K5'
+  };
+
   constructor() { }
 
   ngOnInit() {
@@ -34,5 +41,16 @@ export class SignUpComponent implements OnInit {
 
   onSubmit() {
     console.log(this.userForm.value);
+  }
+
+  prefillAddress() {
+    this.userForm.patchValue({
+      address: {
+        street: this.userInfoAddress.street,
+        city: this.userInfoAddress.city,
+        state: this.userInfoAddress.state,
+        postalCode: this.userInfoAddress.postalCode
+      }
+    })
   }
 }
